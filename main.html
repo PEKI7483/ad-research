@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>瑞幸咖啡广告投放案例 - MD3 PPT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* MD3 Color Palette (Light Theme Example - Replace with your chosen palette) */
+        :root {
+            --md-sys-color-primary: #6750A4; /* Purple */
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-secondary: #625B71; /* Mauve */
+            --md-sys-color-on-secondary: #FFFFFF;
+            --md-sys-color-tertiary: #7D5260; /* Pinkish */
+            --md-sys-color-on-tertiary: #FFFFFF;
+            --md-sys-color-surface: #FFFBFE; /* Near White */
+            --md-sys-color-on-surface: #1C1B1F; /* Near Black */
+            --md-sys-color-on-surface-variant: #49454F; /* Grey */
+            --md-sys-color-outline: #79747E;
+            --md-sys-color-surface-variant: #E7E0EC; /* Light Grey/Purple */
+            --md-sys-color-primary-container: #EADDFF;
+            --md-sys-color-on-primary-container: #21005D;
+
+            /* Typography */
+            --md-sys-typescale-font: 'Roboto', sans-serif;
+        }
+
+        body {
+            font-family: var(--md-sys-typescale-font);
+            background-color: var(--md-sys-color-surface-variant);
+            color: var(--md-sys-color-on-surface);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden; /* Prevent scrollbars from body */
+            margin: 0;
+            padding: 0;
+        }
+
+        .presentation {
+            width: 90%;
+            max-width: 1000px; /* Adjust as needed */
+            height: 600px; /* Fixed height for simplicity */
+            background-color: var(--md-sys-color-surface);
+            border-radius: 16px; /* MD3 often uses larger radii */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden; /* Hide non-active slides */
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 60px); /* Account for navigation height */
+            padding: 40px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center content vertically by default */
+            overflow-y: auto; /* Allow scrolling within slide if content overflows */
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 1;
+        }
+
+        .slide-content {
+            width: 100%;
+        }
+        .slide-content.center-content {
+            text-align: center;
+        }
+
+
+        /* MD3 Typography Scale (Simplified Examples) */
+        .display-medium { font-size: 45px; line-height: 52px; font-weight: 400; }
+        .headline-large { font-size: 32px; line-height: 40px; font-weight: 400; margin-bottom: 16px;}
+        .headline-small { font-size: 24px; line-height: 32px; font-weight: 400; }
+        .title-large { font-size: 22px; line-height: 28px; font-weight: 500; margin-bottom: 8px;}
+        .title-medium { font-size: 16px; line-height: 24px; font-weight: 500; letter-spacing: 0.15px;}
+        .body-large { font-size: 16px; line-height: 24px; font-weight: 400; letter-spacing: 0.5px;}
+        .body-medium { font-size: 14px; line-height: 20px; font-weight: 400; letter-spacing: 0.25px;}
+        .label-large { font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: 0.1px; margin-bottom: 4px;}
+
+        /* Text Color Helpers */
+        .text-primary { color: var(--md-sys-color-primary); }
+        .text-secondary { color: var(--md-sys-color-secondary); }
+        .text-tertiary { color: var(--md-sys-color-tertiary); }
+        .text-on-surface { color: var(--md-sys-color-on-surface); }
+        .text-on-surface-variant { color: var(--md-sys-color-on-surface-variant); }
+
+        /* Card Component */
+        .card {
+            background-color: var(--md-sys-color-surface-variant);
+            border-radius: 12px;
+            padding: 16px 24px;
+            margin-top: 16px;
+            border: 1px solid transparent; /* For potential outline */
+        }
+        .card ul, .card ol {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+        .card ul li, .card ol li {
+            margin-bottom: 8px;
+        }
+
+        .card-row {
+            display: flex;
+            flex-wrap: wrap; /* Allow cards to wrap on smaller screens if needed */
+            gap: 16px; /* Spacing between cards */
+            margin-top: 16px;
+        }
+        .card-row .card {
+            flex: 1 1 200px; /* Allow cards to grow and shrink, with a base width */
+            margin-top: 0;
+            min-width: 200px; /* Prevent cards from becoming too narrow */
+        }
+        .small-card {
+            padding: 12px 16px;
+             flex-basis: 150px; /* Smaller base width for small cards */
+             min-width: 150px;
+        }
+
+        .top-margin {
+            margin-top: 16px;
+        }
+
+        /* Process List Style */
+        .process-list {
+            padding-left: 20px; /* Add space for numbers */
+        }
+        .process-list li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        .process-list li strong {
+            color: var(--md-sys-color-secondary);
+        }
+
+        /* Conclusion List Style */
+        .conclusion-list {
+            list-style: none; /* Remove default bullets */
+            padding-left: 0;
+            margin-top: 16px;
+            display: inline-block; /* Center list items if container is centered */
+            text-align: left;
+        }
+        .conclusion-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px; /* Space for icon */
+        }
+        .conclusion-list li::before {
+            content: '✓'; /* Checkmark icon */
+            color: var(--md-sys-color-primary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+
+        /* Navigation */
+        .navigation {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px;
+            border-top: 1px solid var(--md-sys-color-outline);
+            background-color: var(--md-sys-color-surface);
+            z-index: 10; /* Ensure nav is above slides */
+        }
+
+        .nav-button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px; /* Fully rounded pill shape */
+            font-family: var(--md-sys-typescale-font);
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            white-space: nowrap; /* Prevent button text wrapping */
+        }
+
+        /* Filled Button Style */
+        .filled-button {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+        }
+        .filled-button:hover:not(:disabled) {
+            background-color: #5A3F92; /* Slightly darker primary */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Outlined Button Style */
+        .outlined-button {
+            background-color: transparent;
+            color: var(--md-sys-color-primary);
+            border: 1px solid var(--md-sys-color-outline);
+        }
+        .outlined-button:hover:not(:disabled) {
+            background-color: rgba(103, 80, 164, 0.08); /* Primary color with low alpha */
+        }
+        .nav-button:disabled {
+            opacity: 0.38; /* MD standard disabled opacity */
+            cursor: not-allowed;
+            /* Use different colors for disabled states per MD guidelines if needed */
+            background-color: rgba(0, 0, 0, 0.12);
+            color: rgba(0, 0, 0, 0.38);
+            border-color: transparent;
+            box-shadow: none;
+        }
+
+         /* Responsive adjustments (Example) */
+        @media (max-width: 768px) {
+             .presentation {
+                height: auto; /* Allow height to adjust */
+                min-height: 90vh; /* Ensure it takes up most of the screen */
+             }
+             .slide {
+                padding: 20px;
+                height: calc(100% - 50px); /* Adjust for potentially smaller nav */
+             }
+             .navigation {
+                height: 50px;
+                padding: 0 16px;
+             }
+             .display-medium { font-size: 36px; line-height: 44px; }
+             .headline-large { font-size: 28px; line-height: 36px; }
+             .card-row { flex-direction: column; } /* Stack cards vertically */
+        }
+         @media (max-width: 480px) {
+             .nav-button { padding: 6px 12px; font-size: 12px; }
+             .headline-large { font-size: 24px; line-height: 32px; }
+             .title-large { font-size: 18px; line-height: 24px; }
+             .body-large { font-size: 14px; line-height: 20px; }
+             .slide { padding: 15px; }
+         }
+
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Slide 1: Title -->
+        <div class="slide active" id="slide-1">
+            <div class="slide-content center-content">
+                <span class="label-large text-on-surface-variant">案例研究 Case Study</span>
+                <h1 class="display-medium text-primary">瑞幸咖啡 (Luckin Coffee)</h1>
+                <p class="headline-small text-on-surface">互联网广告投放与数据分析实践</p>
+                <p class="body-large text-on-surface-variant top-margin">以 "生椰拿铁" 推广活动为例</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: The Goal -->
+        <div class="slide" id="slide-2">
+            <div class="slide-content">
+                <h2 class="headline-large text-secondary">核心目标: 生椰拿铁推广</h2>
+                <div class="card">
+                    <h3 class="title-large text-on-surface">主要目的</h3>
+                    <ul class="body-large text-on-surface-variant">
+                        <li>推广爆款新品: <strong>生椰拿铁</strong></li>
+                        <li>吸引新用户下载App</li>
+                        <li>驱动新用户完成<strong>首次下单</strong></li>
+                    </ul>
+                </div>
+                 <div class="card">
+                    <h3 class="title-large text-on-surface">关键指标 (KPIs)</h3>
+                    <ul class="body-large text-on-surface-variant">
+                        <li>App 安装量 (Installs)</li>
+                        <li>新用户首单量 (First Orders)</li>
+                        <li>单次首单获取成本 (CPA - Cost Per Acquisition)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Key Players -->
+        <div class="slide" id="slide-3">
+            <div class="slide-content">
+                 <h2 class="headline-large text-secondary">广告生态中的角色</h2>
+                 <div class="card-row">
+                     <div class="card small-card">
+                         <h3 class="title-medium text-primary">广告主</h3>
+                         <p class="body-medium text-on-surface-variant">瑞幸咖啡</p>
+                     </div>
+                      <div class="card small-card">
+                         <h3 class="title-medium text-primary">媒体/平台</h3>
+                         <p class="body-medium text-on-surface-variant">微信, 抖音, 微博, 小红书...</p>
+                     </div>
+                      <div class="card small-card">
+                         <h3 class="title-medium text-primary">广告平台</h3>
+                         <p class="body-medium text-on-surface-variant">腾讯广告, 巨量引擎...</p>
+                     </div>
+                       <div class="card small-card">
+                         <h3 class="title-medium text-primary">用户</h3>
+                         <p class="body-medium text-on-surface-variant">潜在咖啡消费者</p>
+                     </div>
+                 </div>
+                 <p class="body-large text-on-surface top-margin">瑞幸利用自有数据 (类DMP) 和广告平台实现精准投放。</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Core Process -->
+        <div class="slide" id="slide-4">
+            <div class="slide-content">
+                <h2 class="headline-large text-secondary">瑞幸的投放流程</h2>
+                <ol class="body-large text-on-surface-variant process-list">
+                    <li><strong>需求确定:</strong> 推广生椰拿铁, 获取首单, 定预算/CPA目标 (如20元/首单)。</li>
+                    <li><strong>策略制定:</strong> 主投微信/抖音, 定向年轻白领, 突出优惠 (9.9元)。</li>
+                    <li><strong>创意制作:</strong> 设计吸引人的图片/视频素材。</li>
+                    <li><strong>账户搭建:</strong> 在腾讯/巨量平台建广告计划。</li>
+                    <li><strong>定向设置:</strong> 基于地域、年龄、兴趣、LBS等。</li>
+                    <li><strong>出价竞价:</strong> 采用 oCPA (优化首单) 智能出价。</li>
+                    <li><strong>广告投放:</strong> 在选定平台展示广告。</li>
+                    <li><strong>数据监测:</strong> 追踪展示、点击、安装、下单数据 (通过SDK)。</li>
+                    <li><strong>分析优化:</strong> 分析各渠道/素材效果, 调整预算/出价/创意。</li>
+                    <li><strong>效果报告:</strong> 汇报花费、新增、CPA、ROAS。</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Slide 5: Ad Formats & Pricing -->
+         <div class="slide" id="slide-5">
+             <div class="slide-content">
+                <h2 class="headline-large text-secondary">广告形式与计费</h2>
+                <div class="card-row">
+                    <div class="card">
+                        <h3 class="title-large text-on-surface">常用形式</h3>
+                        <ul class="body-large text-on-surface-variant">
+                            <li>信息流广告 (朋友圈/抖音)</li>
+                            <li>社交媒体广告 (KOL合作)</li>
+                            <li>应用安装广告</li>
+                            <li>搜索广告 (少量)</li>
+                        </ul>
+                    </div>
+                     <div class="card">
+                        <h3 class="title-large text-on-surface">核心计费</h3>
+                        <ul class="body-large text-on-surface-variant">
+                            <li><strong>CPI (Cost Per Install):</strong> 按App安装付费 (如10元/安装)</li>
+                            <li><strong>CPA (Cost Per Acquisition):</strong> 按<strong class="text-primary">首次下单</strong>付费 (如20元/首单)</li>
+                             <li><strong>oCPA/oCPI:</strong> 平台智能优化以达成目标成本</li>
+                        </ul>
+                    </div>
+                </div>
+             </div>
+         </div>
+
+        <!-- Slide 6: Data Analysis - Core Metrics -->
+        <div class="slide" id="slide-6">
+             <div class="slide-content">
+                 <h2 class="headline-large text-secondary">核心数据指标解读</h2>
+                 <div class="card">
+                     <h3 class="title-large text-on-surface">关键转化漏斗指标 (示例)</h3>
+                     <ul class="body-large text-on-surface-variant">
+                         <li><strong>CTR (Click-Through Rate):</strong> 1% (点击量/展示量) - 素材吸引力</li>
+                         <li><strong>Install Rate (Click-to-Install):</strong> 20% (安装量/点击量) - 安装引导效率</li>
+                         <li><strong>First Order Rate (Install-to-Order):</strong> 50% (首单量/安装量) - 新用户下单意愿</li>
+                         <hr style="border: none; border-top: 1px solid var(--md-sys-color-outline); margin: 8px 0;">
+                         <li><strong>CPA (Cost Per Acquisition):</strong> 20元 (总花费/首单量) - <strong class="text-primary">核心成本指标</strong></li>
+                         <li><strong>ROAS (Return on Ad Spend):</strong> 0.75 (首单收入/总花费) - <strong class="text-primary">需结合LTV看</strong></li>
+                     </ul>
+                     <p class="body-medium text-tertiary top-margin">拉新活动ROAS < 1 常见, 关注用户生命周期价值 (LTV)。</p>
+                 </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Data Analysis - Methods & Tools -->
+        <div class="slide" id="slide-7">
+             <div class="slide-content">
+                 <h2 class="headline-large text-secondary">数据分析方法与工具</h2>
+                 <div class="card-row">
+                    <div class="card">
+                        <h3 class="title-large text-on-surface">常用方法</h3>
+                        <ul class="body-large text-on-surface-variant">
+                            <li><strong>A/B 测试:</strong> 对比不同素材/定向效果</li>
+                            <li><strong>维度分析:</strong> 按渠道/人群/地域拆分CPA</li>
+                            <li><strong>漏斗分析:</strong> 找到转化瓶颈</li>
+                            <li><strong>归因分析:</strong> 评估各渠道贡献 (需第三方工具如AppsFlyer)</li>
+                             <li><strong>LTV分析:</strong> 衡量新用户长期价值</li>
+                        </ul>
+                    </div>
+                     <div class="card">
+                        <h3 class="title-large text-on-surface">常用工具</h3>
+                        <ul class="body-large text-on-surface-variant">
+                            <li>广告平台后台 (腾讯/巨量)</li>
+                            <li>App分析工具 (友盟+/AppsFlyer)</li>
+                            <li>BI工具 (Tableau/Quick BI)</li>
+                            <li>Excel / WPS 表格</li>
+                            <li>SQL / Python (进阶)</li>
+                        </ul>
+                    </div>
+                </div>
+             </div>
+         </div>
+
+        <!-- Slide 8: Conclusion -->
+        <div class="slide" id="slide-8">
+            <div class="slide-content center-content">
+                <h2 class="headline-large text-primary">总结: 数据驱动增长</h2>
+                <p class="title-large text-on-surface">瑞幸的案例展示了互联网广告投放中:</p>
+                 <ul class="body-large text-on-surface-variant conclusion-list">
+                    <li>清晰的目标设定至关重要。</li>
+                    <li>精准定向和创意优化是关键。</li>
+                    <li><strong>数据分析</strong>是效果评估和优化的核心。</li>
+                    <li>理解核心指标 (CPA, LTV) 并持续监控。</li>
+                    <li>利用合适工具提升效率。</li>
+                 </ul>
+                <p class="body-large text-secondary top-margin">在广告投放领域, <strong class="text-primary">数据洞察力 = 竞争力</strong>。</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <button id="prev" class="nav-button outlined-button">‹ 上一页</button>
+            <span id="slide-counter" class="label-large text-on-surface-variant">1 / 8</span>
+            <button id="next" class="nav-button filled-button">下一页 ›</button>
+        </div>
+    </div>
+
+    <script>
+        // Wait for the DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            const prevButton = document.getElementById('prev');
+            const nextButton = document.getElementById('next');
+            const slideCounter = document.getElementById('slide-counter');
+            const totalSlides = slides.length;
+            let currentSlideIndex = 0;
+
+            // Initialize the buttons
+            prevButton.disabled = true;
+            
+            // Function to show a slide by index
+            function showSlide(index) {
+                // Make sure index is valid
+                if (index < 0 || index >= totalSlides) return;
+                
+                // Hide all slides
+                slides.forEach(slide => {
+                    slide.classList.remove('active');
+                });
+                
+                // Show the selected slide
+                slides[index].classList.add('active');
+                
+                // Update current index
+                currentSlideIndex = index;
+                
+                // Update counter text
+                slideCounter.textContent = `${currentSlideIndex + 1} / ${totalSlides}`;
+                
+                // Update button states
+                prevButton.disabled = currentSlideIndex === 0;
+                nextButton.disabled = currentSlideIndex === totalSlides - 1;
+                
+                // Reset scroll position
+                if (slides[currentSlideIndex]) {
+                    slides[currentSlideIndex].scrollTop = 0;
+                }
+            }
+            
+            // Event listeners for navigation buttons
+            prevButton.addEventListener('click', function() {
+                showSlide(currentSlideIndex - 1);
+            });
+            
+            nextButton.addEventListener('click', function() {
+                showSlide(currentSlideIndex + 1);
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', function(event) {
+                // Skip if focus is on form elements
+                if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+                    return;
+                }
+                
+                switch(event.key) {
+                    case 'ArrowRight':
+                    case 'PageDown':
+                    case ' ':  // Space
+                        event.preventDefault();
+                        if (currentSlideIndex < totalSlides - 1) {
+                            showSlide(currentSlideIndex + 1);
+                        }
+                        break;
+                    case 'ArrowLeft':
+                    case 'PageUp':
+                        event.preventDefault();
+                        if (currentSlideIndex > 0) {
+                            showSlide(currentSlideIndex - 1);
+                        }
+                        break;
+                    case 'Home':
+                        event.preventDefault();
+                        showSlide(0);
+                        break;
+                    case 'End':
+                        event.preventDefault();
+                        showSlide(totalSlides - 1);
+                        break;
+                }
+            });
+            
+            // Initialize with the first slide
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>
